@@ -5,7 +5,9 @@ import { useFirestoreQuery } from '../hooks';
 const Channel = () => {
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
-  const messages = useFirestoreQuery(messagesRef);
+  const messages = useFirestoreQuery(
+    messagesRef.orderBy('createdAt').limit(25)
+  );
 
   const [newMessage, setNewMessage] = useState('');
 
@@ -15,13 +17,17 @@ const Channel = () => {
 
   const handleOnSubmit = e => {
     e.preventDefault();
-    // Add new message in Firestore
-    messagesRef.add({
-      text: newMessage,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    // Clear input field
-    setNewMessage('');
+
+    const trimmedMessage = newMessage.trim();
+    if (trimmedMessage) {
+      // Add new message in Firestore
+      messagesRef.add({
+        text: trimmedMessage,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      // Clear input field
+      setNewMessage('');
+    }
   };
 
   return (
@@ -33,7 +39,9 @@ const Channel = () => {
       </ul>
       <form onSubmit={handleOnSubmit}>
         <input type="text" value={newMessage} onChange={handleOnChange} />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={!newMessage}>
+          Send
+        </button>
       </form>
     </div>
   );
