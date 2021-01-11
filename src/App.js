@@ -15,7 +15,27 @@ firebase.initializeApp({
 });
 
 function App() {
-  return <Channel />;
+  return (
+    <div className="flex flex-col h-full">
+      <header
+        className="flex-shrink-0 text-center border-b border-b-700"
+        style={{ height: 'var(--topbar-height)' }}
+      >
+        <h1
+          className="font-semibold text-lg truncate"
+          style={{ lineHeight: 'var(--topbar-height)' }}
+        >
+          React FireChat by AlterClass
+        </h1>
+      </header>
+      <main
+        className="flex-1 flex flex-col"
+        style={{ maxHeight: 'calc(100% - var(--topbar-height))' }}
+      >
+        <Channel />
+      </main>
+    </div>
+  );
 }
 
 export default App;
