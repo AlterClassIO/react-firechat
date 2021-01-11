@@ -14,7 +14,7 @@ const Channel = () => {
         // Get all documents from collection - with IDs
         const updatedMessages = querySnapshot.docs.map(doc => ({
           ...doc.data(),
-          id: doc.id,
+          uid: doc.id,
         }));
         // Update messages in state
         setMessages(updatedMessages);
@@ -24,8 +24,8 @@ const Channel = () => {
 
   return (
     <ul>
-      {messages.map(message => (
-        <li>{JSON.stringify(message)}</li>
+      {messages?.map(message => (
+        <li key={message.uid}>{JSON.stringify(message)}</li>
       ))}
     </ul>
   );
