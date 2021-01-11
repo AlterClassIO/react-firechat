@@ -8,18 +8,17 @@ const Channel = () => {
     const db = firebase.firestore();
     const messagesRef = db.collection('messages');
 
-    messagesRef
-      .get()
-      .then(querySnapshot => {
-        // Get all documents from collection - with IDs
-        const updatedMessages = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          uid: doc.id,
-        }));
-        // Update messages in state
-        setMessages(updatedMessages);
-      })
-      .catch(error => console.error(error));
+    const unsubscribe = messagesRef.onSnapshot(querySnapshot => {
+      // Get all documents from collection - with IDs
+      const updatedMessages = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        uid: doc.id,
+      }));
+      // Update messages in state
+      setMessages(updatedMessages);
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
