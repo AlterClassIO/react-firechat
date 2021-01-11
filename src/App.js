@@ -1,7 +1,9 @@
+// Firebase deps
 import firebase from 'firebase/app';
-// Firebase products for authentication and database
 import 'firebase/auth';
 import 'firebase/firestore';
+// Components
+import Channel from './components/Channel';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,7 +15,7 @@ firebase.initializeApp({
 });
 
 function App() {
-  return <div className="App"></div>;
+  return <Channel />;
 }
 
 export default App;
