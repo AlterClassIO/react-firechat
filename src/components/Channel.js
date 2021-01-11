@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import firebase from 'firebase/app';
 import { useFirestoreQuery } from '../hooks';
 // Components
@@ -12,6 +12,14 @@ const Channel = () => {
   );
 
   const [newMessage, setNewMessage] = useState('');
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [inputRef]);
 
   const handleOnChange = e => {
     setNewMessage(e.target.value);
@@ -49,6 +57,7 @@ const Channel = () => {
           className="flex flex-row bg-gray-200 rounded-md px-4 py-3 z-10 max-w-screen-lg mx-auto"
         >
           <input
+            ref={inputRef}
             type="text"
             value={newMessage}
             onChange={handleOnChange}
