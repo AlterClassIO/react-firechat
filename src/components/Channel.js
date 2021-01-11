@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import firebase from 'firebase/app';
+import { useFirestoreQuery } from '../hooks';
 
 const Channel = () => {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    const db = firebase.firestore();
-    const messagesRef = db.collection('messages');
-
-    const unsubscribe = messagesRef.onSnapshot(querySnapshot => {
-      // Get all documents from collection - with IDs
-      const updatedMessages = querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        uid: doc.id,
-      }));
-      // Update messages in state
-      setMessages(updatedMessages);
-    });
-
-    return unsubscribe;
-  }, []);
+  const messages = useFirestoreQuery(
+    firebase.firestore().collection('messages')
+  );
 
   return (
     <ul>
