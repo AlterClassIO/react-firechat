@@ -53,7 +53,8 @@ function App() {
 
   const ThemeIcon = darkMode ? SunIcon : MoonIcon;
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async e => {
+    e.preventDefault();
     // Retrieve Google provider object
     const provider = new firebase.auth.GoogleAuthProvider();
     // Set language to the default browser preference
