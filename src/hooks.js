@@ -1,5 +1,40 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 
+export function useAsync(asyncFunc) {
+  const [state, setState] = useState({
+    status: 'idle',
+    value: null,
+    error: null,
+  });
+
+  const run = useCallback(async () => {
+    setState({
+      status: 'pending',
+      value: null,
+      error: null,
+    });
+
+    try {
+      const res = await asyncFunc();
+      setState({
+        status: 'success',
+        value: res,
+      });
+    } catch (error) {
+      setState({
+        status: 'error',
+        error,
+      });
+    }
+  }, [asyncFunc]);
+
+  useEffect(() => {
+    run();
+  }, [run]);
+
+  return state;
+}
+
 export function useFirestoreQuery(query) {
   const [docs, setDocs] = useState([]);
 
@@ -40,7 +75,7 @@ export function useFirestoreQuery(query) {
 }
 
 export function useAuthState(auth) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => auth.currentUser);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
