@@ -107,7 +107,7 @@ function App() {
           <Channel user={user} />
         ) : (
           <div className="flex items-center justify-center shadow-md h-full">
-            <div className="flex flex-col items-center justify-center max-w-xl w-full p-8 rounded-md shadow-card bg-white dark:bg-coolDark-600 transition-all">
+            <div className="flex flex-col items-center justify-center max-w-xl w-full mx-4 p-8 rounded-md shadow-card bg-white dark:bg-coolDark-600 transition-all">
               <h2 className="mb-2 text-3xl flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
