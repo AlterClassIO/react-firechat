@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 // Firebase deps
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -16,6 +17,22 @@ firebase.initializeApp({
 });
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const signInWithGoogle = async () => {
+    // Retrieve Google provider object
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // Set language to the default browser preference
+    firebase.auth().useDeviceLanguage();
+    // Start sign in process
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      setUser(result.user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-white dark:bg-coolDark-500 dark:text-white transition-colors">
       <header
@@ -34,7 +51,13 @@ function App() {
         className="flex-1 flex flex-col"
         style={{ maxHeight: 'calc(100% - var(--topbar-height))' }}
       >
-        <Channel />
+        {user ? (
+          <Channel />
+        ) : (
+          <button onClick={signInWithGoogle} className="rounded-md">
+            Sign in
+          </button>
+        )}
       </main>
     </div>
   );
