@@ -45,7 +45,7 @@ const Channel = ({ user = null }) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <div className="overflow-auto h-full">
         <div className="py-4 max-w-screen-lg mx-auto">
           <div className="border-b dark:border-gray-600 border-gray-200 py-8 mb-4">
@@ -88,7 +88,7 @@ const Channel = ({ user = null }) => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
