@@ -8,13 +8,13 @@ import Message from './Message';
 const Channel = ({ user = null }) => {
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
-  const messages = useFirestoreQuery(
-    messagesRef.orderBy('createdAt').limit(25)
-  );
+  const messages = useFirestoreQuery(messagesRef.orderBy('createdAt'));
 
   const [newMessage, setNewMessage] = useState('');
 
   const inputRef = useRef();
+
+  const { uid, displayName, photoURL } = user;
 
   useEffect(() => {
     if (inputRef.current) {
@@ -32,9 +32,13 @@ const Channel = ({ user = null }) => {
     const trimmedMessage = newMessage.trim();
     if (trimmedMessage) {
       // Add new message in Firestore
+      alert('sending');
       messagesRef.add({
         text: trimmedMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid,
+        displayName,
+        photoURL,
       });
       // Clear input field
       setNewMessage('');
@@ -47,7 +51,7 @@ const Channel = ({ user = null }) => {
         <ul className="py-4 max-w-screen-lg mx-auto">
           {messages?.map(message => (
             <li key={message.id}>
-              <Message {...message} user={user} />
+              <Message {...message} />
             </li>
           ))}
         </ul>
@@ -79,7 +83,11 @@ const Channel = ({ user = null }) => {
 };
 
 Channel.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.shape({
+    uid: PropTypes.string,
+    displayName: PropTypes.string,
+    photoURL: PropTypes.string,
+  }),
 };
 
 export default Channel;

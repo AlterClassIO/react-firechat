@@ -14,16 +14,20 @@ const formatDate = date => {
   return formattedDate;
 };
 
-const Message = ({ createdAt = null, text = '', user = null }) => {
+const Message = ({
+  createdAt = null,
+  text = '',
+  displayName = '',
+  photoURL = '',
+}) => {
   if (!text) return null;
 
-  const { displayName, photoURL } = user;
-
   return (
-    <div className="px-4 py-4 hover:bg-gray-50 dark:hover:bg-coolDark-600 overflow-hidden flex items-start">
+    <div className="px-4 py-4 rounded-md hover:bg-gray-50 dark:hover:bg-coolDark-600 overflow-hidden flex items-start">
       {photoURL ? (
         <img
           src={photoURL}
+          alt="Avatar"
           className="rounded-full mr-4"
           width={45}
           height={45}
@@ -51,7 +55,8 @@ Message.propTypes = {
   createdAt: PropTypes.shape({
     seconds: PropTypes.number,
   }),
-  user: PropTypes.object,
+  displayName: PropTypes.string,
+  photoURL: PropTypes.string,
 };
 
 export default Message;
