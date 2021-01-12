@@ -8,7 +8,9 @@ import Message from './Message';
 const Channel = ({ user = null }) => {
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
-  const messages = useFirestoreQuery(messagesRef.orderBy('createdAt'));
+  const messages = useFirestoreQuery(
+    messagesRef.orderBy('createdAt', 'desc').limit(100)
+  );
 
   const [newMessage, setNewMessage] = useState('');
 
@@ -58,11 +60,15 @@ const Channel = ({ user = null }) => {
             </p>
           </div>
           <ul>
-            {messages?.map(message => (
-              <li key={message.id}>
-                <Message {...message} />
-              </li>
-            ))}
+            {messages
+              ?.sort((first, second) =>
+                first?.createdAt?.seconds <= second?.createdAt?.seconds ? -1 : 1
+              )
+              ?.map(message => (
+                <li key={message.id}>
+                  <Message {...message} />
+                </li>
+              ))}
           </ul>
         </div>
       </div>
