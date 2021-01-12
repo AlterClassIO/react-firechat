@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --topbar-height: 65px;
+  --topbar-height: 60px;
 }
 
 @layer base {

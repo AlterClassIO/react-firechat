@@ -4,6 +4,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 // Components
 import Channel from './components/Channel';
+import ThemeIcon from './components/ThemeIcon';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,17 +17,18 @@ firebase.initializeApp({
 
 function App() {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white dark:bg-coolDark-500 dark:text-white transition-colors">
       <header
-        className="flex-shrink-0 text-center border-b border-b-700"
+        className="flex-shrink-0 flex items-center justify-between px-8 shadow-md"
         style={{ height: 'var(--topbar-height)' }}
       >
         <h1
-          className="font-semibold text-lg truncate"
+          className="font-medium text-lg truncate"
           style={{ lineHeight: 'var(--topbar-height)' }}
         >
-          React FireChat by AlterClass
+          React FireChat
         </h1>
+        <ThemeIcon />
       </header>
       <main
         className="flex-1 flex flex-col"

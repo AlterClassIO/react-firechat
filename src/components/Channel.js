@@ -43,7 +43,7 @@ const Channel = () => {
   return (
     <>
       <div className="overflow-auto h-full">
-        <ul className="max-w-screen-lg mx-auto">
+        <ul className="py-4 max-w-screen-lg mx-auto">
           {messages?.map(message => (
             <li key={message.uid}>
               <Message {...message} />
@@ -54,7 +54,7 @@ const Channel = () => {
       <div className="mb-6 mx-4">
         <form
           onSubmit={handleOnSubmit}
-          className="flex flex-row bg-gray-200 rounded-md px-4 py-3 z-10 max-w-screen-lg mx-auto"
+          className="flex flex-row bg-gray-200 dark:bg-coolDark-400 rounded-md px-4 py-3 z-10 max-w-screen-lg mx-auto dark:text-white shadow-md"
         >
           <input
             ref={inputRef}

@@ -1,15 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import { formatRelative } from 'date-fns';
+
+const formatDate = date => {
+  let formattedDate = '';
+  if (date) {
+    // Convert the date in words relative to the current date
+    formattedDate = formatRelative(date, new Date());
+    // Uppercase the first letter
+    formattedDate =
+      formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+  }
+  return formattedDate;
+};
 
 const Message = ({ createdAt = null, text = '' }) => {
   if (!text) return null;
 
   return (
-    <div className="px-4 pt-4 pb-6 hover:bg-gray-50">
+    <div className="px-4 py-4 hover:bg-gray-50 dark:hover:bg-coolDark-600">
       {createdAt?.seconds ? (
         <span className="text-gray-500 text-sm">
-          {format(new Date(createdAt.seconds), 'MM/dd/yyyy')}
+          {formatDate(new Date(createdAt.seconds * 1000))}
         </span>
       ) : null}
       <p>{text}</p>

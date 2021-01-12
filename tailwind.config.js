@@ -1,8 +1,14 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'coolDark-400': '#40444B',
+        'coolDark-500': '#36393f',
+        'coolDark-600': '#32353b',
+      },
+    },
   },
   variants: {
     extend: {},
