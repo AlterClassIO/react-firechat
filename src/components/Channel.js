@@ -32,7 +32,6 @@ const Channel = ({ user = null }) => {
     const trimmedMessage = newMessage.trim();
     if (trimmedMessage) {
       // Add new message in Firestore
-      alert('sending');
       messagesRef.add({
         text: trimmedMessage,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -48,13 +47,24 @@ const Channel = ({ user = null }) => {
   return (
     <>
       <div className="overflow-auto h-full">
-        <ul className="py-4 max-w-screen-lg mx-auto">
-          {messages?.map(message => (
-            <li key={message.id}>
-              <Message {...message} />
-            </li>
-          ))}
-        </ul>
+        <div className="py-4 max-w-screen-lg mx-auto">
+          <div className="border-b dark:border-gray-600 border-gray-200 py-8 mb-4">
+            <div className="font-bold text-3xl text-center">
+              <p className="mb-1">Welcome to</p>
+              <p className="mb-3">React FireChat</p>
+            </div>
+            <p className="text-gray-400 text-center">
+              This is the beginning of this chat.
+            </p>
+          </div>
+          <ul>
+            {messages?.map(message => (
+              <li key={message.id}>
+                <Message {...message} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className="mb-6 mx-4">
         <form
