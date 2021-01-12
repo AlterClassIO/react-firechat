@@ -15,6 +15,7 @@ const Channel = ({ user = null }) => {
   const [newMessage, setNewMessage] = useState('');
 
   const inputRef = useRef();
+  const bottomListRef = useRef();
 
   const { uid, displayName, photoURL } = user;
 
@@ -43,6 +44,8 @@ const Channel = ({ user = null }) => {
       });
       // Clear input field
       setNewMessage('');
+      // Scroll down to the bottom of the list
+      bottomListRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -70,6 +73,7 @@ const Channel = ({ user = null }) => {
                 </li>
               ))}
           </ul>
+          <div ref={bottomListRef} />
         </div>
       </div>
       <div className="mb-6 mx-4">
