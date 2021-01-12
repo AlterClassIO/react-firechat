@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 // Firebase deps
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 // Hooks
-import { useDarkMode } from './hooks';
+import { useAuthState, useDarkMode } from './hooks';
 // Components
 import Channel from './components/Channel';
 
@@ -44,7 +44,7 @@ const SunIcon = props => (
 );
 
 function App() {
-  const [user, setUser] = useState(null);
+  const user = useAuthState(firebase.auth());
   const [darkMode, setDarkMode] = useDarkMode();
 
   const brandLogo = darkMode
@@ -60,8 +60,7 @@ function App() {
     firebase.auth().useDeviceLanguage();
     // Start sign in process
     try {
-      const result = await firebase.auth().signInWithPopup(provider);
-      setUser(result.user);
+      await firebase.auth().signInWithPopup(provider);
     } catch (error) {
       console.log(error.message);
     }

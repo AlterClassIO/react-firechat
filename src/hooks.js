@@ -39,6 +39,25 @@ export function useFirestoreQuery(query) {
   return docs;
 }
 
+export function useAuthState(auth) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(false);
+      }
+    });
+
+    // Cleanup subscription
+    return unsubscribe;
+  }, [auth]);
+
+  return user;
+}
+
 export function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
