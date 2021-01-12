@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import { useFirestoreQuery } from '../hooks';
 // Components
 import Message from './Message';
 
-const Channel = () => {
+const Channel = ({ user = null }) => {
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
   const messages = useFirestoreQuery(
@@ -45,8 +46,8 @@ const Channel = () => {
       <div className="overflow-auto h-full">
         <ul className="py-4 max-w-screen-lg mx-auto">
           {messages?.map(message => (
-            <li key={message.uid}>
-              <Message {...message} />
+            <li key={message.id}>
+              <Message {...message} user={user} />
             </li>
           ))}
         </ul>
@@ -67,7 +68,7 @@ const Channel = () => {
           <button
             type="submit"
             disabled={!newMessage}
-            className="uppercase font-semibold text-sm tracking-wider text-gray-500 hover:text-gray-900 transition-colors"
+            className="uppercase font-semibold text-sm tracking-wider text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             Send
           </button>
@@ -75,6 +76,10 @@ const Channel = () => {
       </div>
     </>
   );
+};
+
+Channel.propTypes = {
+  user: PropTypes.object,
 };
 
 export default Channel;

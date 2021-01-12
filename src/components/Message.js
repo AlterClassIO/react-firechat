@@ -14,17 +14,34 @@ const formatDate = date => {
   return formattedDate;
 };
 
-const Message = ({ createdAt = null, text = '' }) => {
+const Message = ({ createdAt = null, text = '', user = null }) => {
   if (!text) return null;
 
+  const { displayName, photoURL } = user;
+
   return (
-    <div className="px-4 py-4 hover:bg-gray-50 dark:hover:bg-coolDark-600">
-      {createdAt?.seconds ? (
-        <span className="text-gray-500 text-sm">
-          {formatDate(new Date(createdAt.seconds * 1000))}
-        </span>
+    <div className="px-4 py-4 hover:bg-gray-50 dark:hover:bg-coolDark-600 overflow-hidden flex items-start">
+      {photoURL ? (
+        <img
+          src={photoURL}
+          className="rounded-full mr-4"
+          width={45}
+          height={45}
+        />
       ) : null}
-      <p>{text}</p>
+      <div>
+        <div className="flex items-center mb-1">
+          {displayName ? (
+            <p className="mr-2 text-primary-500">{displayName}</p>
+          ) : null}
+          {createdAt?.seconds ? (
+            <span className="text-gray-500 text-xs">
+              {formatDate(new Date(createdAt.seconds * 1000))}
+            </span>
+          ) : null}
+        </div>
+        <p>{text}</p>
+      </div>
     </div>
   );
 };
@@ -34,6 +51,7 @@ Message.propTypes = {
   createdAt: PropTypes.shape({
     seconds: PropTypes.number,
   }),
+  user: PropTypes.object,
 };
 
 export default Message;

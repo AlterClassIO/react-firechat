@@ -26,7 +26,7 @@ export function useFirestoreQuery(query) {
       // Get all documents from collection - with IDs
       const data = querySnapshot.docs.map(doc => ({
         ...doc.data(),
-        uid: doc.id,
+        id: doc.id,
       }));
       // Update state
       setDocs(data);

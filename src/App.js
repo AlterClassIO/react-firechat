@@ -52,7 +52,7 @@ function App() {
         style={{ maxHeight: 'calc(100% - var(--topbar-height))' }}
       >
         {user ? (
-          <Channel />
+          <Channel user={user} />
         ) : (
           <button onClick={signInWithGoogle} className="rounded-md">
             Sign in
