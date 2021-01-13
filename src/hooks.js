@@ -40,6 +40,7 @@ export function useFirestoreQuery(query) {
 }
 
 export function useAuthState(auth) {
+  const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(() => auth.currentUser);
 
   useEffect(() => {
@@ -49,13 +50,16 @@ export function useAuthState(auth) {
       } else {
         setUser(false);
       }
+      if (initializing) {
+        setInitializing(false);
+      }
     });
 
     // Cleanup subscription
     return unsubscribe;
-  }, [auth]);
+  }, [auth, initializing]);
 
-  return user;
+  return { user, initializing };
 }
 
 export function useLocalStorage(key, initialValue) {
