@@ -5,12 +5,15 @@
 Source code of the React FireChat app built with React, Firebase, and Tailwind
 CSS. Deployed on Netlify.
 
-Watch tutorial on how to build this app from scratch on [Youtube]().
+Watch the tutorial on how to build this app from scratch:
 
-[![React FireChat by AlterClass](https://alterclass.s3.eu-west-3.amazonaws.com/react-firechat.png)](https://react-car-configurator.netlify.app/)
+[![Build a REALTIME CHAT APP in 5 MIN with React and Firebase](https://alterclass.s3.eu-west-3.amazonaws.com/build+a+chat+app+in+5+min+with+React+and+firebase.png)](https://www.youtube.com/watch?v=2-LISBTczQE)
 
 Check out the live demo of the final result:
 [https://react-firechat-alterclass.netlify.app/](https://react-firechat-alterclass.netlify.app/).
+
+[![React FireChat by AlterClass](https://alterclass.s3.eu-west-3.amazonaws.com/react-firechat.png)](https://react-car-configurator.netlify.app/)
+
 
 ## create-react-app
 
